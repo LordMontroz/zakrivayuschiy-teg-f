@@ -17,4 +17,164 @@
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  /* Основной шрифт можете смело применить к селектору .page, сославшись на переменную. Только не забываем указать альтернативный системный шрифт. */
+  font-family: var(--accent-font-family), sans-serif;
+  /* Основной вес шрифта применяется к селектору .page через font-variation-settings */
+  font-variation-settings: "wght" var(--main-font-weight, 400);
+  /* Как только вы укажете для селектора .page свойства фона и цвета текста, сославшись на переменные, сможете проверить, что цветовые темы работают */
+  color: var(--accent-color);
+  /* Шаг 5. Фоны. Значение для свойства background-image лучше хранить в отдельной переменной и менять между темами. Фон фиксирован, скроллится со всей страницей. */
+  background-image: repeating-linear-gradient(
+      0deg,
+      var(--bg-gradient) 0 2px,
+      transparent 2px 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--bg-gradient) 0 2px,
+      transparent 2px 4px
+    ),
+    linear-gradient(
+      to top,
+      var(--bg-gradient-start) 0%,
+      var(--bg-gradient-end) 0.01%,
+      var(--bg-gradient-start) 100%
+    );
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Шаг 6. Лейаут */
+.header {
+  margin-block: 100px auto;
+  width: 100%;
+  max-width: 700px;
+  background-color: var(--bg-color);
+  border: 2px solid var(--accent-color, #000);
+}
+
+.header-wrapper {
+  width: 100%;
+  padding-top: clamp(120px, 10.4167vw, 136px);
+}
+
+.header-title {
+  display: block;
+  text-align: center;
+  font-family: var(--accent-font-family);
+  font-size: clamp(49px, -0.0783rem + 4.6009vw, 65px);
+  font-weight: var(--main-font-weight);
+  line-height: normal;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.header-text {
+  display: block;
+  text-align: center;
+  font-family: var(--accent-font-family);
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  font-weight: var(--main-font-weight);
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: var(--accent-color);
+  font-family: var(--acсent-font-family);
+  font-weight: var(--main-font-weight);
+  font-size: 14px;
+  outline: 2px solid var(--accent-color);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.button-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-menu {
+  display: flex;
+  padding-block-start: 25px;
+  padding-block-end: 21px;
+  justify-content: center;
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.theme-menu__item {
+  display: inline;
+}
+
+.theme-menu__button {
+  text-transform: uppercase;
+  position: relative;
+  padding-inline-start: 25px;
+  outline: none;
+}
+
+.theme-menu__button::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.3s;
+}
+
+.theme-menu__button:focus-visible:after {
+  width: 100%;
+}
+
+.theme-menu__button:hover:after {
+  scale: 1;
+}
+
+.theme-menu__button:focus-visible {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.theme-menu__button:focus-visible:focus {
+  outline: none;
+}
+
+.theme-menu__button:hover {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.6;
+}
+
+.theme-menu__button:disabled::before {
+  content: "▶";
+  position: absolute;
+  left: 5px;
+  animation: arrow 0.8s infinite ease-in-out;
+}
+
+@keyframes arrow {
+  0% {
+    left: 4px;
+  }
+
+  100% {
+    left: 0px;
+  }
+}
+
+.theme-menu__button:disabled {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
