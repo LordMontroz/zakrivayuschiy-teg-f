@@ -17,6 +17,10 @@
   --bg-gradient: #000;
   --bg-gradient-start: #007f0c;
   --bg-gradient-end: #004306;
+  --shadow-lable: #000;
+  --hover-button-text: #000;
+  --sparks-fill: #f00;
+  --color-heart-main: #f00;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +32,10 @@
     --bg-gradient: #000;
     --bg-gradient-start: #007f0c;
     --bg-gradient-end: #004306;
+    --shadow-lable: #000;
+    --hover-button-text: #000;
+    --sparks-fill: #f00;
+    --color-heart-main: #f00;
   }
 }
 
@@ -40,6 +48,10 @@
   --bg-gradient: #d3d3d3;
   --bg-gradient-start: #e7e7e7;
   --bg-gradient-end: #1a1a1a;
+  --shadow-lable: #fff;
+  --hover-button-text: #fff;
+  --sparks-fill: #f00;
+  --color-heart-main: #f00;
 }
 
 @media (prefers-color-scheme: light) {
@@ -52,7 +64,9 @@
     --bg-gradient: #d3d3d3;
     --bg-gradient-start: #e7e7e7;
     --bg-gradient-end: #1a1a1a;
+    --shadow-lable: #fff;
+    --hover-button-text: #fff;
+    --sparks-fill: #f00;
+    --color-heart-main: #f00;
   }
 }
-
-

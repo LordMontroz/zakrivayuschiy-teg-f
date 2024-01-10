@@ -12,3 +12,108 @@
 
 Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
 */
+
+/* Шаг 9. Анимации кнопок
+Кнопки анимируются при фокусе и ховере по-разному. Кроме того, анимация кнопок Like и «Сохранить на память» отличается от анимации кнопки, оборачивающей сердечко. */
+
+.core {
+  opacity: 0;
+  transition: opacity 0.3s;
+  fill: var(--accent-color);
+}
+
+.contour {
+  fill: var(--accent-color);
+}
+
+.main-body {
+  opacity: 0;
+  transition: opacity 0.3s;
+  fill: var(--accent-color);
+}
+
+.sparks {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Сердце анимируется в трёх состояниях: при ховере (и наоборот, когда уводим курсор), при нажатии и удержании (в состоянии :active), при клике.
+Для реализации придётся написать достаточно много кода, но получится круто.
+Для более удобной работы мы рекомендуем вынести цвета контура и заливки в отдельные переменные и использовать их в коде. */
+
+.like-icon:hover {
+  cursor: pointer;
+}
+
+.like-icon:hover .main-body {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.like-icon:hover .core {
+  transition: opacity 0.3s;
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+
+.card__icon-button:active .main-body {
+  opacity: 1;
+  fill: var(--color-heart-main);
+  transition: opacity 0.3s ease;
+}
+
+.card__icon-button:active .core {
+  opacity: 1;
+  fill: var(--color-heart-main);
+  transition: opacity 0.3s ease;
+  transition-delay: 0.05s;
+}
+
+.like-icon.is-liked .main-body {
+  opacity: 1;
+  fill: var(--color-heart-main);
+  transition: opacity 0.3s ease;
+}
+
+.like-icon.is-liked .core {
+  opacity: 1;
+  fill: var(--color-heart-main);
+  transition: opacity 0.3s ease;
+  transition-delay: 0.05s;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--color-heart-main);
+  transition: fill 0.3s;
+  transition-delay: 0.06s;
+}
+
+.like-icon.is-liked {
+  animation: heart-scale 0.3s ease-in 0.1s;
+}
+
+/* Для того чтобы масштабировать сердце и сделать вспышку искр, придётся написать два кифрейма.
+Первый — масштабирование с 1 до 1.5. Эту анимацию нужно запустить на всей группе элементов .heart через 0.1s после появления класса is-liked в разметке.
+Длиться масштабирование должно 0.3s с плавностью ease-in, происходить однажды, но в две стороны — от начала к концу и обратно. */
+
+@keyframes heart-scale {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.5;
+  }
+}
+
+.like-icon.is-liked .sparks {
+  animation: change-opacity 0.3s ease-in 0.3s;
+}
+
+@keyframes change-opacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1.5;
+  }
+}
