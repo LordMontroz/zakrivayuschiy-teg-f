@@ -19,17 +19,17 @@
 .core {
   opacity: 0;
   transition: opacity 0.3s;
-  fill: var(--accent-color);
+  fill: var(--accent-color, #00cc14);
 }
 
 .contour {
-  fill: var(--accent-color);
+  fill: var(--accent-color, #00cc14);
 }
 
 .main-body {
   opacity: 0;
   transition: opacity 0.3s;
-  fill: var(--accent-color);
+  fill: var(--accent-color, #00cc14);
 }
 
 .sparks {
@@ -58,38 +58,42 @@
 
 .card__icon-button:active .main-body {
   opacity: 1;
-  fill: var(--color-heart-main);
+  fill: var(--color-heart-main, #f00);
   transition: opacity 0.3s ease;
 }
 
 .card__icon-button:active .core {
   opacity: 1;
-  fill: var(--color-heart-main);
+  fill: var(--color-heart-main, #f00);
   transition: opacity 0.3s ease;
   transition-delay: 0.05s;
 }
 
 .like-icon.is-liked .main-body {
   opacity: 1;
-  fill: var(--color-heart-main);
+  fill: var(--color-heart-main, #f00);
   transition: opacity 0.3s ease;
 }
 
 .like-icon.is-liked .core {
   opacity: 1;
-  fill: var(--color-heart-main);
+  fill: var(--color-heart-main, #f00);
   transition: opacity 0.3s ease;
   transition-delay: 0.05s;
 }
 
 .like-icon.is-liked .contour {
-  fill: var(--color-heart-main);
+  fill: var(--color-heart-main, #f00);
   transition: fill 0.3s;
   transition-delay: 0.06s;
 }
 
-.like-icon.is-liked {
-  animation: heart-scale 0.3s ease-in 0.1s;
+.like-icon.is-liked .heart {
+  animation: heart-scale 0.3s ease-in 0.1s 1 alternate;
+}
+
+.like-icon .heart {
+  transform-origin: center;
 }
 
 /* Для того чтобы масштабировать сердце и сделать вспышку искр, придётся написать два кифрейма.
