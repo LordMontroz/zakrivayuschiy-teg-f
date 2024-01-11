@@ -13,6 +13,138 @@
 Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
 */
 
+/* Создайте псевдоэлемент, который будет отрисовываться снизу.
+Плавности отрисовки можно добиться постепенным масштабированием (scale) этого элемента по оси X.
+Без cостояния focus-visible элемент масштабирован в 0, а в этом состоянии — 1.
+Настройки плавности такие же, как для состояния ховер. */
+
+.theme-menu__button::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 2px;
+  background-color: var(--accent-color, #00cc14);
+  transition: width 0.3s;
+}
+
+/* По ховеру и в состоянии disabled кнопки становятся прозрачными, нужное значение — 0.6.
+Как и все анимации на сайте, изменение состояния должно быть плавным. У этих состояний переход длится 0.3s с функцией времени ease. */
+
+.theme-menu__button:focus-visible {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+/* Для состояния focus у кнопки сбросьте дефолтную обводку и назначьте такую же прозрачность, как при ховере. */
+
+.theme-menu__button:hover {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.6;
+}
+
+.theme-menu__button:focus-visible:after {
+  width: 100%;
+}
+
+.theme-menu__button:hover:after {
+  scale: 1;
+}
+
+/* Для состояния focus у кнопки сбросьте дефолтную обводку и назначьте такую же прозрачность, как при ховере. */
+
+.theme-menu__button:focus-visible:focus {
+  outline: none;
+}
+
+/* Для реализации стрелочки у меню опирайтесь на псевдокласс :disabled */
+/* Псевдоэлемент со стрелкой должен постоянно двигаться влево и вправо. */
+
+.theme-menu__button:disabled::before {
+  content: "▶";
+  position: absolute;
+  left: 5px;
+  animation: arrow 0.8s infinite ease-in-out;
+}
+
+/* Состояние disabled также должно делать кнопку неактивной для взаимодействия, добиться этого поможет pointer-events: none; */
+
+.theme-menu__button:disabled {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  outline: 2px solid var(--accent-color, #00cc14);
+  transition: outline 0.3s ease;
+  height: 100%;
+}
+
+/* Сначала разберёмся с фокусами. В состоянии focus отмените стандартную обводку и добавьте тень блока.
+Основы работы с тенями вам уже знакомы. Нужная тень сдвинута на два пикселя по осям X и Y, с нулевым размытием, акцентного цвета.
+Для box-shadow нужно задать те же настройки плавности, которые вы дважды использовали в шапке. */
+
+.card__like-button:focus-visible {
+  box-shadow: 3px 3px var(--accent-color, #00cc14);
+  transition: box-shadow 0.3s ease;
+}
+
+.animated-button:hover {
+  transform: translateX(0);
+}
+
+.animated-button:hover .animated-button-text {
+  mix-blend-mode: hard-light;
+  color: var(--hover-button-text, #000);
+  z-index: 2;
+  transition: color 0.3s;
+}
+
+.animated-button:hover::after {
+  transform: scaleX(1);
+}
+
+.animated-button::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  z-index: -1;
+  background-color: var(--accent-color, #00cc14);
+  transition: transform 0.5s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: difference;
+}
+
+.button-save:focus {
+  outline: none;
+}
+
+.button-save:focus-visible {
+  box-shadow: 2px 2px var(--accent-color, #00cc14);
+  transition: box-shadow 0.3s;
+  outline: none;
+}
+
+.animated-button:hover .button-svg {
+  mix-blend-mode: hard-light;
+  color: var(--hover-button-text, #000);
+  z-index: 2;
+  transition: fill 0.3s;
+}
+
+
+.close-button:focus-visible {
+  box-shadow: 3px 3px var(--accent-color, #00cc14);
+  transition: box-shadow 0.3s;
+}
+
 /* Шаг 9. Анимации кнопок
 Кнопки анимируются при фокусе и ховере по-разному. Кроме того, анимация кнопок Like и «Сохранить на память» отличается от анимации кнопки, оборачивающей сердечко. */
 
@@ -94,6 +226,21 @@
 
 .like-icon .heart {
   transform-origin: center;
+}
+
+/* Кифрейм, в первом кадре которого будет описан текущий сдвиг псевдоэлемента,
+а в финальном — сдвиг на 4 пикселя правее.
+После этого запустите анимацию на псевдоэлементе длительностью 0.5 секунды с функцией времени ease-in-out,
+сделайте её бесконечной и проигрывающейся в две стороны. */
+
+@keyframes arrow {
+  0% {
+    left: 4px;
+  }
+
+  100% {
+    left: 0px;
+  }
 }
 
 /* Для того чтобы масштабировать сердце и сделать вспышку искр, придётся написать два кифрейма.

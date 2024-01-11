@@ -17,13 +17,21 @@
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
+
   /* Основной шрифт можете смело применить к селектору .page, сославшись на переменную. Только не забываем указать альтернативный системный шрифт. */
+
   font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+
   /* Основной вес шрифта применяется к селектору .page через font-variation-settings */
+
   font-variation-settings: "wght" var(--main-font-weight, 400);
+
   /* Как только вы укажете для селектора .page свойства фона и цвета текста, сославшись на переменные, сможете проверить, что цветовые темы работают */
+
   color: var(--accent-color, #00cc14);
+
   /* Шаг 5. Фоны. Значение для свойства background-image лучше хранить в отдельной переменной и менять между темами. Фон фиксирован, скроллится со всей страницей. */
+
   background-image: repeating-linear-gradient(
       0deg,
       var(--bg-gradient, #000) 0 2px,
@@ -45,6 +53,7 @@
 }
 
 /* Шаг 6. Лейаут */
+
 .header {
   margin: 100px auto;
   width: 100%;
@@ -54,6 +63,7 @@
 }
 
 /* резиновые элементы — логотип, заголовок, отступы в шапке. Используйте clamp */
+
 .header-wrapper {
   width: 100%;
   padding-top: clamp(120px, 10.4167vw, 136px);
@@ -81,26 +91,6 @@
   text-transform: uppercase;
 }
 
-.button {
-  background-color: transparent;
-  border: none;
-  color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
-  font-weight: var(--main-font-weight, 465);
-  font-size: 14px;
-  outline: 2px solid var(--accent-color, #00cc14);
-}
-
-button:hover {
-  cursor: pointer;
-}
-
-.button-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .theme-menu {
   display: flex;
   padding-block-start: 25px;
@@ -120,6 +110,20 @@ button:hover {
   display: inline;
 }
 
+.button {
+  background-color: transparent;
+  border: none;
+  color: var(--accent-color, #00cc14);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-weight: var(--main-font-weight, 465);
+  font-size: 14px;
+  outline: 2px solid var(--accent-color, #00cc14);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 /* В шапке несколько анимаций: двигающаяся стрелка около активного пункта меню, ховер на пункт меню, фокус на пункт меню, изменение состояния между enabled и disabled кнопкой. */
 
 .theme-menu__button {
@@ -129,83 +133,7 @@ button:hover {
   outline: none;
 }
 
-/* Создайте псевдоэлемент, который будет отрисовываться снизу.
-Плавности отрисовки можно добиться постепенным масштабированием (scale) этого элемента по оси X.
-Без cостояния focus-visible элемент масштабирован в 0, а в этом состоянии — 1.
-Настройки плавности такие же, как для состояния ховер. */
-
-.theme-menu__button::after {
-  content: "";
-  display: block;
-  width: 0%;
-  height: 2px;
-  background-color: var(--accent-color, #00cc14);
-  transition: width 0.3s;
-}
-
-.theme-menu__button:focus-visible:after {
-  width: 100%;
-}
-
-.theme-menu__button:hover:after {
-  scale: 1;
-}
-
-/* По ховеру и в состоянии disabled кнопки становятся прозрачными, нужное значение — 0.6.
-Как и все анимации на сайте, изменение состояния должно быть плавным. У этих состояний переход длится 0.3s с функцией времени ease. */
-
-.theme-menu__button:focus-visible {
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-/* Для состояния focus у кнопки сбросьте дефолтную обводку и назначьте такую же прозрачность, как при ховере. */
-.theme-menu__button:focus-visible:focus {
-  outline: none;
-}
-
-.theme-menu__button:hover {
-  transition: opacity 0.3s ease-in-out;
-  opacity: 0.6;
-}
-/* Для реализации стрелочки у меню опирайтесь на псевдокласс :disabled */
-/* Псевдоэлемент со стрелкой должен постоянно двигаться влево и вправо. */
-
-.theme-menu__button:disabled::before {
-  content: "▶";
-  position: absolute;
-  left: 5px;
-  animation: arrow 0.8s infinite ease-in-out;
-}
-
-/* Кифрейм, в первом кадре которого будет описан текущий сдвиг псевдоэлемента,
-а в финальном — сдвиг на 4 пикселя правее.
-После этого запустите анимацию на псевдоэлементе длительностью 0.5 секунды с функцией времени ease-in-out,
-сделайте её бесконечной и проигрывающейся в две стороны. */
-
-@keyframes arrow {
-  0% {
-    left: 4px;
-  }
-
-  100% {
-    left: 0px;
-  }
-}
-
-/* Состояние disabled также должно делать кнопку неактивной для взаимодействия, добиться этого поможет pointer-events: none; */
-.theme-menu__button:disabled {
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.main-text {
-  color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
-  font-weight: var(--main-font-weight, 465);
-  font-size: 14px;
-}
+/* Секция Main */
 
 .content-card {
   margin: 50px auto;
@@ -223,6 +151,15 @@ button:hover {
   border-block-end: 2px solid var(--accent-color, #00cc14);
 }
 
+/* Поверх каждой карточки должен появиться лейбл.
+Для этого вокруг изображения придётся создать обёртку, в этом контейнере будет лежать изображение и текстовый элемент.
+Лейбл придётся правильно спозиционировать. А добиться нужного визуального эффекта поможет режим смешивания hard-light. */
+
+.wraper-img {
+  display: grid;
+  position: relative;
+}
+
 .card-picture {
   display: block;
   width: 100%;
@@ -231,10 +168,28 @@ button:hover {
   aspect-ratio: 1 / 1;
 }
 
+.lable {
+  position: absolute;
+  place-self: start end;
+  margin: 25px;
+  z-index: 1;
+  color: var(--accent-color, #00cc14);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-weight: var(--main-font-weight, 465);
+  font-size: 14px;
+  text-transform: uppercase;
+
+  /* hard-light — если background-image светлее background-color,
+  то результатом будет muliply, а если светлее, то результатом будет screen. */
+
+  mix-blend-mode: hard-light;
+  opacity: 0.5;
+}
+
 .box-content-text {
   display: grid;
   gap: 27px;
-  padding: 21px 25px 25px;
+  padding: 25px 26px 25px;
   border-block-start: 2px solid var(--accent-color, #00cc14);
 }
 
@@ -245,53 +200,11 @@ button:hover {
   line-height: 21px;
 }
 
-content-card p {
-  margin-bottom: 25px;
-}
-
-/* Поверх каждой карточки должен появиться лейбл.
-Для этого вокруг изображения придётся создать обёртку, в этом контейнере будет лежать изображение и текстовый элемент.
-Лейбл придётся правильно спозиционировать. А добиться нужного визуального эффекта поможет режим смешивания hard-light. */
-
-.wraper-img {
-  position: relative;
-}
-
-.lable {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
-  font-weight: var(--main-font-weight, 465);
-  font-size: 14px;
-  text-transform: uppercase;
-  /* hard-light — если background-image светлее background-color, то результатом будет muliply, а если светлее, то результатом будет screen. */
-  mix-blend-mode: hard-light;
-  opacity: 0.5;
-}
-
-/* Обратите внимание на обводку у текста. В разных цветовых темах её цвет различается.
-В этом спринте вы изучали, как делать такие обводки. Не забудьте проверить поддержку нужного свойства через @supports и сделать фоллбэк в виде text-shadow.
-Цвет обводки храните в отдельной переменной и меняйте его значение в различных цветовых схемах сайта. */
-
-@supports (
-  (text-stroke: 1px var(--shadow-lable, #000)) or
-    (-webkit-text-stroke: 1px var(--shadow-lable, #000))
-) {
-  .lable {
-    -webkit-text-stroke: 1px var(--shadow-lable, #000);
-    text-stroke: 1px var(--shadow-lable, #000);
-    text-shadow: none;
-  }
-}
-
 .double-button {
   min-height: 38px;
   display: flex;
-  gap: 7px;
-  flex-direction: row;
-  justify-content: flex-end;
+  gap: 5px;
+  justify-content: end;
   align-items: center;
 }
 
@@ -304,53 +217,21 @@ content-card p {
   transition: outline 0.3s ease;
 }
 
-.card__icon-button:focus {
-  outline: none;
-}
-
-.card__icon-button:focus-visible {
-  outline: 2px solid var(--accent-color, #00cc14);
-  transition: outline 0.3s ease;
-  height: 100%;
+.card__like-button {
+  padding: 0;
+  width: 130px;
 }
 
 .animated-button {
   overflow: hidden;
-  transition: transform 0.3s;
+  transition: transform 0.5s ease-in-out;
 }
 
-.animated-button:hover {
-  transition: transform 0.3s;
-  transform: translateX(0);
-}
-
-.animated-button:hover .animated-button-text {
-  mix-blend-mode: hard-light;
-  color: var(--hover-button-text, #000);
-  z-index: 2;
-  transition: color 0.3s;
-}
-
-.animated-button:hover::before {
-  transition: transform 0.3s;
-  transform: translateX(0);
-}
-
-.animated-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--accent-color, #00cc14);
-  transform: translateX(-100%);
-  transition: transform 0.5s;
-}
-
-.card__like-button {
-  padding: 0;
-  width: 130px;
+.main-text {
+  color: var(--accent-color, #00cc14);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-weight: var(--main-font-weight, 465);
+  font-size: 14px;
 }
 
 .button__text {
@@ -362,13 +243,10 @@ content-card p {
   padding: 10px 0;
 }
 
-/* Сначала разберёмся с фокусами. В состоянии focus отмените стандартную обводку и добавьте тень блока.
-Основы работы с тенями вам уже знакомы. Нужная тень сдвинута на два пикселя по осям X и Y, с нулевым размытием, акцентного цвета.
-Для box-shadow нужно задать те же настройки плавности, которые вы дважды использовали в шапке. */
-
-.card__like-button:focus-visible {
-  box-shadow: 3px 3px var(--accent-color, #00cc14);
-  transition: box-shadow 0.3s;
+.button-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button-save {
@@ -378,16 +256,6 @@ content-card p {
   border: 2px solid var(--accent-color, #00cc14);
   background-color: var(--bg-color, #000);
   min-width: clamp(306px, 100vw - 30px, 335px);
-  outline: none;
-}
-
-.button-save:focus {
-  outline: none;
-}
-
-.button-save:focus-visible {
-  box-shadow: 2px 2px var(--accent-color, #00cc14);
-  transition: box-shadow 0.3s;
   outline: none;
 }
 
@@ -401,21 +269,13 @@ content-card p {
   height: 21px;
 }
 
-.animated-button:hover .button-svg {
-  mix-blend-mode: hard-light;
-  color: var(--hover-button-text, #000);
-  z-index: 2;
-  transition: fill 0.3s;
-}
-
 .dialog::backdrop {
   background-color: rgb(0 0 0 / 0.75);
   backdrop-filter: blur(7px);
 }
 
-.dialog {
+.dialog[open] {
   background-color: var(--bg-color, #000);
-  position: relative;
   outline: solid 2px var(--accent-color, #00cc14);
   padding: 0;
   width: 357px;
@@ -426,11 +286,6 @@ content-card p {
   margin: 0 auto 30px;
   width: 293px;
   padding: 10.5px 6px;
-}
-
-.close-button:focus-visible {
-  box-shadow: 3px 3px var(--accent-color, #00cc14);
-  transition: box-shadow 0.3s;
 }
 
 .dialog__save {
@@ -456,10 +311,6 @@ content-card p {
   color: var(--accent-color, #00cc14);
   width: 39px;
   height: 39px;
-}
-
-.filter-grayscale {
-  filter: grayscale(1);
 }
 
 .filter-contrast {
@@ -493,6 +344,10 @@ content-card p {
 /* Единственный медиазапрос, касающийся ширины устройства, который использовали мы, — @media (width <= 375px).
 Его должно хватить. Да и стилей там переопределено совсем немного. Макет практически целиком резиновый. */
 @media (width <= 376px) {
+  .lable {
+    margin: 23px 11px;
+  }
+
   .button-svg {
     width: 28px;
     height: 28px;
@@ -518,5 +373,20 @@ content-card p {
 
   .close-button {
     width: 257px;
+  }
+}
+
+/* Обратите внимание на обводку у текста. В разных цветовых темах её цвет различается.
+В этом спринте вы изучали, как делать такие обводки. Не забудьте проверить поддержку нужного свойства через @supports и сделать фоллбэк в виде text-shadow.
+Цвет обводки храните в отдельной переменной и меняйте его значение в различных цветовых схемах сайта. */
+
+@supports (
+  (-webkit-text-stroke: 1px var(--shadow-lable, #000)) or
+    (text-stroke: 1px var(--shadow-lable, #000))
+) {
+  .lable {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--shadow-lable, #000);
+    text-stroke: 1px var(--shadow-lable, #000);
   }
 }
