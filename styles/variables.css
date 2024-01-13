@@ -4,4 +4,7 @@
   /* Типографика*/
   --accent-font-family: "PressStart2P-Regular";
   --main-font-family: "Inter-Variable";
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-green: #00cc14;
 }

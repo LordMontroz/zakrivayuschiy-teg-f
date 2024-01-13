@@ -20,7 +20,7 @@
 
   /* Основной шрифт можете смело применить к селектору .page, сославшись на переменную. Только не забываем указать альтернативный системный шрифт. */
 
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", fantasy);
 
   /* Основной вес шрифта применяется к селектору .page через font-variation-settings */
 
@@ -72,7 +72,7 @@
 .header-title {
   display: block;
   text-align: center;
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", fantasy);
   font-size: clamp(49px, -0.0783rem + 4.6009vw, 65px);
   font-weight: var(--main-font-weight, 465);
   line-height: normal;
@@ -84,7 +84,7 @@
 .header-text {
   display: block;
   text-align: center;
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", fantasy);
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
   font-weight: var(--main-font-weight, 465);
   line-height: normal;
@@ -111,26 +111,66 @@
 }
 
 .button {
-  background-color: transparent;
-  border: none;
-  color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  z-index: 1;
+  position: relative;
+  border: 2px solid var(--accent-color, #00cc14);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", fantasy);
+  background: var(--bg-color, #000);
   font-weight: var(--main-font-weight, 465);
+  text-transform: inherit;
+  transition: box-shadow 0.3s ease;
   font-size: 14px;
-  outline: 2px solid var(--accent-color, #00cc14);
+  cursor: pointer;
+  appearance: none;
+}
+
+.button:focus {
+  outline: none;
 }
 
 button:hover {
   cursor: pointer;
 }
 
+.button:focus-visible {
+  box-shadow: 2px 2px 0px 0px var(--accent-color, #00cc14);
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--accent-color, #00cc14);
+  transition: transform 0.5s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: left;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button__text,
+.button-svg {
+  color: var(--button-text-color, #00cc14);
+  mix-blend-mode: difference;
+}
+
 /* В шапке несколько анимаций: двигающаяся стрелка около активного пункта меню, ховер на пункт меню, фокус на пункт меню, изменение состояния между enabled и disabled кнопкой. */
 
 .theme-menu__button {
-  text-transform: uppercase;
-  position: relative;
   padding-inline-start: 25px;
-  outline: none;
+  position: relative;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: transparent;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  appearance: none;
 }
 
 /* Секция Main */
@@ -143,7 +183,7 @@ button:hover {
 }
 
 .card-title {
-  font-family: var(--main-font-family, "Inter-Variable", fantasy);
+  font-family: var(--main-font-family, "Inter-Variable", sans-serif);
   font-variation-settings: "wght" var(--accent-font-weight, 785);
   font-size: 18px;
   line-height: normal;
@@ -174,10 +214,11 @@ button:hover {
   margin: 25px;
   z-index: 1;
   color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
+  font-family: var(--accent-font-family, "PressStart2P-Regular", fantasy);
   font-weight: var(--main-font-weight, 465);
   font-size: 14px;
   text-transform: uppercase;
+  text-shadow: 0 0 1px var(--bg-color, #000);
 
   /* hard-light — если background-image светлее background-color,
   то результатом будет muliply, а если светлее, то результатом будет screen. */
@@ -194,7 +235,7 @@ button:hover {
 }
 
 .content-text {
-  font-family: var(--main-font-family, "Inter-Variable", fantasy);
+  font-family: var(--main-font-family, "Inter-Variable", sans-serif);
   font-size: 18px;
   font-weight: var(--main-font-weight, 465);
   line-height: 21px;
@@ -209,29 +250,18 @@ button:hover {
 }
 
 .card__icon-button {
-  display: flex;
-  align-items: center;
-  height: 100%;
+  display: grid;
+  border: 2px solid transparent;
   padding: 0;
-  outline: 2px solid transparent;
-  transition: outline 0.3s ease;
+  background: transparent;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+  appearance: none;
 }
 
 .card__like-button {
   padding: 0;
   width: 130px;
-}
-
-.animated-button {
-  overflow: hidden;
-  transition: transform 0.5s ease-in-out;
-}
-
-.main-text {
-  color: var(--accent-color, #00cc14);
-  font-family: var(--accent-font-family, "PressStart2P-Regular", sans-serif);
-  font-weight: var(--main-font-weight, 465);
-  font-size: 14px;
 }
 
 .button__text {
@@ -300,11 +330,14 @@ button:hover {
   text-align: left;
   line-height: 21px;
   text-transform: uppercase;
+  color: var(--accent-color, #00cc14);
 }
 
 .dialog-button-text {
   line-height: 12.6px;
   text-transform: uppercase;
+  color: var(--button-text-color, #00cc14);
+  mix-blend-mode: difference;
 }
 
 .dialog-svg {

@@ -79,9 +79,7 @@
 }
 
 .card__icon-button:focus-visible {
-  outline: 2px solid var(--accent-color, #00cc14);
-  transition: outline 0.3s ease;
-  height: 100%;
+  border-color: var(--accent-color, #00cc14);
 }
 
 /* Сначала разберёмся с фокусами. В состоянии focus отмените стандартную обводку и добавьте тень блока.
@@ -89,7 +87,7 @@
 Для box-shadow нужно задать те же настройки плавности, которые вы дважды использовали в шапке. */
 
 .card__like-button:focus-visible {
-  box-shadow: 3px 3px var(--accent-color, #00cc14);
+  box-shadow: 2px 2px 0px 0px var(--accent-color, #00cc14);
   transition: box-shadow 0.3s ease;
 }
 
@@ -141,7 +139,7 @@
 
 
 .close-button:focus-visible {
-  box-shadow: 3px 3px var(--accent-color, #00cc14);
+  box-shadow: 2px 2px var(--accent-color, #00cc14);
   transition: box-shadow 0.3s;
 }
 

@@ -11,6 +11,7 @@
 :root.theme-dark {
   /* Цветовые темы: цвет фона, акцентный цвет */
   --bg-color: #000;
+  --button-text-color: var(--color-green, #00cc14);
   --accent-color: #00cc14;
   --main-font-weight: 465;
   --accent-font-weight: 785;
@@ -26,6 +27,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #000;
+    --button-text-color: var(--color-green, #00cc14);
     --accent-color: #00cc14;
     --main-font-weight: 465;
     --accent-font-weight: 785;
@@ -41,6 +43,7 @@
 
 :root.theme-light {
   --bg-color: #fff;
+  --button-text-color: var(--color-white, #fff);
   --accent-color: #000;
   --main-font-weight: 400;
   --accent-font-weight: 700;
@@ -57,6 +60,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --bg-color: #fff;
+    --button-text-color: var(--color-white, #fff);
     --accent-color: #000;
     --main-font-weight: 400;
     --accent-font-weight: 700;
